@@ -1,0 +1,13 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="kirito.peoject.testlibs">
+    <application>
+        <activity android:name=".MainActivity"
+                  android:screenOrientation="portrait"
+        />
+        <activity android:name=".net.NetTestActivity"
+                  android:screenOrientation="portrait"
+        />
+
+    </application>
+
+</manifest>
