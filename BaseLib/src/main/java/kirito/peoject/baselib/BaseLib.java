@@ -2,6 +2,7 @@ package kirito.peoject.baselib;
 
 import android.app.Application;
 import com.alibaba.android.arouter.launcher.ARouter;
+import kirito.peoject.baselib.thirdPart.Retrofit.XRetrofitConfig;
 
 /**
  * @Description: the base libs for android project
@@ -13,16 +14,21 @@ import com.alibaba.android.arouter.launcher.ARouter;
  * @needingAttention(注意事项): In this class, you can only set some basic properties.
  */
 public class BaseLib {
+    public static XRetrofitConfig xRetrofitConfig;
+
     /**
-     *  init in application
+     * init in application
+     *
      * @param application
      */
-    public static void init(Application application ,boolean isDebug) {
+
+    public static void init(Application application, boolean isDebug, XRetrofitConfig config) {
         if (isDebug) {           // These two lines must be written before init, otherwise these configurations will be invalid in the init process
             ARouter.openLog();     // Print log
             ARouter.openDebug();   // Turn on debugging mode (If you are running in InstantRun mode, you must turn on debug mode! Online version needs to be closed, otherwise there is a security risk)
         }
         ARouter.init(application);
+        xRetrofitConfig = config;
     }
 
 }

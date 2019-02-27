@@ -2,6 +2,7 @@ package kirito.peoject.xlibs;
 
 import android.app.Application;
 import kirito.peoject.baselib.BaseLib;
+import kirito.peoject.baselib.thirdPart.Retrofit.XRetrofitConfig;
 
 /**
  * @Description:
@@ -16,6 +17,6 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        BaseLib.init(this, BuildConfig.DEBUG);
+        BaseLib.init(this, BuildConfig.DEBUG,new XRetrofitConfig());
     }
 }

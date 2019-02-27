@@ -37,4 +37,9 @@ dependencies {
     api 'com.alibaba:arouter-api:1.4.1'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
     api project(':ConstantLibs')
+    api 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
+    api 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
+
+    api 'com.lxj:xpopup:1.4.2'
+
 }

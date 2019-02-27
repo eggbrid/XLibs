@@ -2,10 +2,15 @@ package kirito.peoject.xlibs;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.BaseAdapter;
 import kirito.peoject.baselib.UI.BaseActivity;
 import kirito.peoject.baselib.thirdPart.ARouter.ARouterHelper;
-import kirito.peoject.constantlibs.UIConstant.activity.BaseLibsActivitys;
+import kirito.peoject.baselib.thirdPart.Retrofit.XRetrofit;
 import kirito.peoject.constantlibs.UIConstant.activity.TestLibs;
+import retrofit2.BaseUrl;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * @Description:
@@ -39,7 +44,17 @@ public class DemoActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        XRetrofit.toRequset((Call<Bean>) XRetrofit.getServerCall(BaseAdapter.class), new Callback<Bean>() {
+            @Override
+            public void onResponse(Response<Bean> response) {
 
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
     }
 
     @Override
