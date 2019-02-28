@@ -1,12 +1,17 @@
 package kirito.peoject.testlibs;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import kirito.peoject.baselib.UI.BaseActivity;
+import kirito.peoject.baselib.mvp.Persenter;
+import kirito.peoject.baselib.thirdPart.Retrofit.NetCallBack;
 import kirito.peoject.baselib.util.IntentUtil;
 import kirito.peoject.constantlibs.UIConstant.activity.TestLibs;
+import kirito.peoject.testlibs.model.TestM;
 import kirito.peoject.testlibs.net.NetTestActivity;
+import kirito.peoject.testlibs.persenter.TestP;
 
 /**
  * @Description:
@@ -19,6 +24,8 @@ import kirito.peoject.testlibs.net.NetTestActivity;
  */
 @Route(path = TestLibs.TestLibs_MainActivity)
 public class MainActivity extends BaseActivity {
+    @Persenter
+    TestP testP;
     @Override
     public void initParams(Bundle savedInstanceState) {
 
@@ -41,6 +48,23 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        TestP testP=new TestP();
+        testP.getTestJson(new NetCallBack<TestM>() {
+            @Override
+            public void onGetData(TestM testM) {
+                Log.e("wangxu",testM.getJson());
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
 
     }
 

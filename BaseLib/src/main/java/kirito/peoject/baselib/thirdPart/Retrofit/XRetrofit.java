@@ -1,9 +1,10 @@
 package kirito.peoject.baselib.thirdPart.Retrofit;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import kirito.peoject.baselib.BaseLib;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * @Description:
@@ -58,7 +59,10 @@ public class XRetrofit {
         return tImpl;
     }
 
-    public static  <T> void toRequset(Call<T> call,Callback<T> callback){
-        call.enqueue(callback);
+    public  static <T> Observable<T> toRequest(Observable <T> observable,NetCallBack netCallBack ){
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new ResponseCallBack<T>(netCallBack){
+
+        });
+        return observable;
     }
 }

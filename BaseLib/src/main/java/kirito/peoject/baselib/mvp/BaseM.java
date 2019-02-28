@@ -1,13 +1,32 @@
 package kirito.peoject.baselib.mvp;
 
 /**
- * @Description:
+ * @Description:the base model of MVP mode
  * @Author:kirito
  * @CreatTime:2019/2/26 0026
- * @LastModify(最终修改人):kirito
- * @LastModifyTime(最终修改时间):2019/2/26 0026
- * @LastChekedBy: kirito
- * @needingAttention(注意事项):
  */
 public class BaseM {
+
+    /**
+     * is parse server http response by yourself ?
+     * @return true :by your self ,false :use default
+     */
+    public boolean isReadResponseBySelf(){
+        return false;
+    }
+
+    /**
+     * if you need parse server http response by yourself
+     * you need return true with
+     * @see #isReadResponseBySelf()
+     * and Override this method to parse your response
+     * @param value
+     * @param <T>
+     * @return
+     */
+    public  <T> T toBean(String value) {
+        return null;
+    }
+
+
 }

@@ -11,6 +11,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import kirito.peoject.baselib.manager.permission.PermissionManager;
 import kirito.peoject.baselib.manager.permission.enums.PermissionEnum;
+import kirito.peoject.baselib.mvp.Persenter;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Description:
@@ -43,12 +48,26 @@ public abstract class BaseActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         try {
             initParams(savedInstanceState);
+            initPersenter();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         setContentView(setViewID());
     }
 
+    public void initPersenter() throws InstantiationException, IllegalAccessException {
+        Field[] fields = getClass().getDeclaredFields();
+        List<Field> result = new ArrayList<Field>();
+        for (Field field : fields) {
+            if (field.getAnnotation(Persenter.class) != null)
+                result.add(field);
+        }
+
+        for (Field list : result) {
+            list.set(list.getClass().newInstance(), list.getClass().newInstance());
+        }
+    }
 
 
     @Override

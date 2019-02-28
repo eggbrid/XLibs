@@ -7,9 +7,9 @@ import kirito.peoject.baselib.UI.BaseActivity;
 import kirito.peoject.baselib.thirdPart.ARouter.ARouterHelper;
 import kirito.peoject.baselib.thirdPart.Retrofit.XRetrofit;
 import kirito.peoject.constantlibs.UIConstant.activity.TestLibs;
-import retrofit2.BaseUrl;
-import retrofit2.Call;
+
 import retrofit2.Callback;
+import retrofit2.Call;
 import retrofit2.Response;
 
 /**
@@ -34,7 +34,8 @@ public class DemoActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        findViewById(R.id.jump).setOnClickListener(new View.OnClickListener() {
+        View view = findViewById(R.id.jump);
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ARouterHelper.startActivity(TestLibs.TestLibs_MainActivity);
@@ -44,17 +45,6 @@ public class DemoActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        XRetrofit.toRequset((Call<Bean>) XRetrofit.getServerCall(BaseAdapter.class), new Callback<Bean>() {
-            @Override
-            public void onResponse(Response<Bean> response) {
-
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });
     }
 
     @Override
