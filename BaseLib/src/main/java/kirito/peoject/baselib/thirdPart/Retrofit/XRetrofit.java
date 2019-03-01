@@ -2,9 +2,12 @@ package kirito.peoject.baselib.thirdPart.Retrofit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import kirito.peoject.baselib.BaseLib;
+
+import java.util.List;
 
 /**
  * @Description:
@@ -59,8 +62,8 @@ public class XRetrofit {
         return tImpl;
     }
 
-    public  static <T> Observable<T> toRequest(Observable <T> observable,NetCallBack netCallBack ){
-        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new ResponseCallBack<T>(netCallBack){
+    public  static <T> Observable<T> toRequest(Observable <T> observable, NetCallBack netCallBack , List<Disposable> disposables){
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new ResponseCallBack<T>(netCallBack,disposables){
 
         });
         return observable;

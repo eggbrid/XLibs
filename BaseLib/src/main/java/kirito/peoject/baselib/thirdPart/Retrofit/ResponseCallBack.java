@@ -3,6 +3,8 @@ package kirito.peoject.baselib.thirdPart.Retrofit;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
+import java.util.List;
+
 /**
  * @Description:
  * @Author:kirito
@@ -14,13 +16,15 @@ import io.reactivex.disposables.Disposable;
  */
 public abstract  class ResponseCallBack<T>  implements Observer<T> {
    private NetCallBack callBack;
-    public ResponseCallBack(NetCallBack callBack){
+   private List<Disposable> disposables;
+    public ResponseCallBack(NetCallBack callBack, List<Disposable> disposables){
         this.callBack=callBack;
+        this.disposables=disposables;
     }
 
     @Override
     public void onSubscribe(Disposable d) {
-
+        disposables.add(d);
     }
 
     @Override
@@ -30,6 +34,7 @@ public abstract  class ResponseCallBack<T>  implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
+        e.printStackTrace();
         callBack.onFailure();
     }
 

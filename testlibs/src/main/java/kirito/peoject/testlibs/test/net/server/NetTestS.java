@@ -1,8 +1,7 @@
-package kirito.peoject.testlibs.server;
+package kirito.peoject.testlibs.test.net.server;
 
 import io.reactivex.Observable;
-import kirito.peoject.testlibs.model.TestM;
-import retrofit2.Call;
+import kirito.peoject.testlibs.test.net.model.TestM;
 import retrofit2.http.GET;
 
 /**
@@ -14,7 +13,7 @@ import retrofit2.http.GET;
  * @LastChekedBy: kirito
  * @needingAttention(注意事项):
  */
-public interface TestS {
+public interface NetTestS {
 
     @GET("openapi.do?keyfrom=Yanzhikai&key=2032414398&type=data&doctype=json&version=1.1&q=car")
     Observable<TestM> getTestJson();

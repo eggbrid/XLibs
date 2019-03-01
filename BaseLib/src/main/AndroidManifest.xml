@@ -3,10 +3,5 @@
 
     <application
             android:allowBackup="true" >
-
-        <activity
-                android:name="kirito.peoject.baselib.demo.DemoActivity"
-                android:screenOrientation="portrait"
-        ></activity>
     </application>
 </manifest>

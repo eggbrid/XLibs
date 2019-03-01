@@ -11,11 +11,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import kirito.peoject.baselib.manager.permission.PermissionManager;
 import kirito.peoject.baselib.manager.permission.enums.PermissionEnum;
-import kirito.peoject.baselib.mvp.Persenter;
+import kirito.peoject.baselib.mvp.BaseP;
+import kirito.peoject.baselib.mvp.BaseV;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Description:
@@ -26,19 +29,27 @@ import java.util.List;
  * @LastChekedBy: 王旭
  * @needingAttention(注意事项):
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<V extends BaseV> extends AppCompatActivity implements View.OnClickListener  {
     private PermissionManager permissionManager;
+    private Map<String, BaseP> presenters = new HashMap<>();
+    protected V view;
 
+    //参数初始化
+    public void initParams(Bundle savedInstanceState) {
+    }
+    //初始化数据
+    public  void initData(){
 
-    public abstract void initParams(Bundle savedInstanceState);    //参数初始化
+    }
 
-    protected abstract int setViewID();//初始化布局
+    public void afterInitView(V v) {
 
-    protected abstract void initView();//初始化布局
+    }
 
-    public abstract void initData();//初始化数据
-
-    public abstract Bundle saveParam(Bundle outState);//保存数据，原本可以封装到此处，不外抛出，由于害怕用户有其他需要保存的数据，目前抛出
+    //保存数据，原本可以封装到此处，不外抛出，由于害怕用户有其他需要保存的数据，目前抛出
+    public Bundle saveParam(Bundle outState) {
+        return outState;
+    }
 
 
     @Override
@@ -48,25 +59,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         try {
             initParams(savedInstanceState);
-            initPersenter();
-
+            Class[] parameterTypes={AppCompatActivity.class};
+            Constructor<V> constructor=getTClass().getConstructor(parameterTypes);
+            Object[] parameters={this};
+            view = constructor.newInstance(parameters);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        setContentView(setViewID());
-    }
-
-    public void initPersenter() throws InstantiationException, IllegalAccessException {
-        Field[] fields = getClass().getDeclaredFields();
-        List<Field> result = new ArrayList<Field>();
-        for (Field field : fields) {
-            if (field.getAnnotation(Persenter.class) != null)
-                result.add(field);
-        }
-
-        for (Field list : result) {
-            list.set(list.getClass().newInstance(), list.getClass().newInstance());
-        }
+        setContentView(view.setViewLayout());
+        view.initView();
+        afterInitView(view);
+        initData();
     }
 
 
@@ -87,16 +90,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         permissionManager = null;
+        for (Map.Entry<String, BaseP> entry : presenters.entrySet()) {
+            if (entry.getValue() != null) {
+                entry.getValue().cancel();
+            }
+        }
         System.gc();
-    }
-
-
-    @Override
-    public void setContentView(int layoutResID) {
-        super.setContentView(layoutResID);
-        initView();
-        initData();
-
     }
 
 
@@ -190,4 +189,43 @@ public abstract class BaseActivity extends AppCompatActivity {
         return false;
     }
 
+    public <P extends BaseP> P getP(Class<P> pClass) {
+        String tag = pClass.getPackage() + pClass.getName();
+        if (presenters.containsKey(tag)) {
+            return (P) presenters.get(tag);
+        }
+        P p = null;
+        try {
+            p = pClass.newInstance();
+            presenters.put(tag, p);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+        return p;
+    }
+
+    public Class<V> getTClass() {
+        Type type = getClass().getGenericSuperclass(); // 判断 是否泛型
+        if (type instanceof ParameterizedType) { // 返回表示此类型实际类型参数的Type对象的数组. // 当有多个泛型类时，数组的长度就不是1了
+            Type[] ptype = ((ParameterizedType) type).getActualTypeArguments();
+            return (Class) ptype[0]; //将第一个泛型T对应的类返回（这里只有一个）
+        } else if (type instanceof Class) {
+            return (Class) type;
+        } else if (type instanceof ParameterizedType) {
+            ParameterizedType parameterizedType = (ParameterizedType) type;
+            Type rawType = parameterizedType.getRawType();
+            return (Class) rawType;
+        } else {
+            return null;
+
+
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
 }

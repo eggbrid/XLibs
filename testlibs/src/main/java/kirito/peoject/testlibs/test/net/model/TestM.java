@@ -1,4 +1,4 @@
-package kirito.peoject.testlibs.model;
+package kirito.peoject.testlibs.test.net.model;
 
 import kirito.peoject.baselib.mvp.BaseM;
 

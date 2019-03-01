@@ -13,6 +13,7 @@ package kirito.peoject.baselib.thirdPart.Retrofit;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
+import kirito.peoject.baselib.mvp.BaseM;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
@@ -56,14 +57,12 @@ public final class GsonConverterFactory extends Converter.Factory {
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations,
                                                             Retrofit retrofit) {
-        TypeAdapter<?> adapter = gson.getAdapter(TypeToken.get(type));
-        return new GsonResponseBodyConverter<>(adapter);
+        TypeAdapter<? extends BaseM> adapter = (TypeAdapter<? extends BaseM>) gson.getAdapter(TypeToken.get(type));
+        return new GsonResponseBodyConverter<>(adapter,type);
     }
 
     @Override
-    public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] annotations,
-                                                          Retrofit retrofit) {
+    public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
         TypeAdapter<?> adapter = gson.getAdapter(TypeToken.get(type));
-        return new GsonRequestBodyConverter<>(gson, adapter);
-    }
+        return new GsonRequestBodyConverter<>(gson, adapter);    }
 }

@@ -1,5 +1,7 @@
 package kirito.peoject.baselib.mvp;
 
+import com.google.gson.Gson;
+
 /**
  * @Description:the base model of MVP mode
  * @Author:kirito
@@ -28,5 +30,8 @@ public class BaseM {
         return null;
     }
 
-
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
 }

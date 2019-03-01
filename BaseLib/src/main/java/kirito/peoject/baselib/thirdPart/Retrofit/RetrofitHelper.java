@@ -4,6 +4,7 @@ import kirito.peoject.constantlibs.net.HttpUrls;
 import okhttp3.OkHttpClient;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 /**
  * @Description: the retrofit helper
@@ -33,8 +34,9 @@ public final class RetrofitHelper {
             builder = builder.client(client);
         }
         if (factory!=null){
-            builder.addConverterFactory(factory);
+            builder=  builder.addConverterFactory(factory);
         }
+        builder=  builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
         return builder.build();
     }
     public static final  class Builder {

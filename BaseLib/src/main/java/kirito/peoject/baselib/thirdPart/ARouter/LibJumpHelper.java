@@ -14,7 +14,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
  * @LastChekedBy: kirito
  * @needingAttention(注意事项):
  */
-public class ARouterHelper {
+public class LibJumpHelper {
 
     /**
      * this function like call startActivity in android

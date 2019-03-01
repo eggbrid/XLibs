@@ -4,7 +4,7 @@
         <activity android:name=".MainActivity"
                   android:screenOrientation="portrait"
         />
-        <activity android:name=".net.NetTestActivity"
+        <activity android:name=".test.net.activity.NetTestActivity"
                   android:screenOrientation="portrait"
         />
 
