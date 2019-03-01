@@ -34,12 +34,12 @@ public class NetTestActivity extends BaseActivity<NetTestView> {
                 }
                 @Override
                 public void onFinish() {
-                    Log.e("wangxu", "onFinish");
+                    Log.e(getTag(), "onFinish");
                 }
 
                 @Override
                 public void onFailure() {
-                    Log.e("wangxu", "onFailure");
+                    Log.e(getTag(), "onFailure");
                 }
             });
         }

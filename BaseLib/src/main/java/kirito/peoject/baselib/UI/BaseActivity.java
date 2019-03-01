@@ -223,6 +223,9 @@ public abstract class BaseActivity<V extends BaseV> extends AppCompatActivity im
 
         }
     }
+    public String getTag(){
+        return this.getClassName();
+    }
 
     @Override
     public void onClick(View v) {

@@ -3,7 +3,6 @@ package kirito.peoject.baselib.thirdPart.Retrofit;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import kirito.peoject.baselib.BaseLib;
 
@@ -13,10 +12,7 @@ import java.util.List;
  * @Description:
  * @Author:kirito
  * @CreatTime:2019/2/27 0027
- * @LastModify(最终修改人):kirito
- * @LastModifyTime(最终修改时间):2019/2/27 0027
- * @LastChekedBy: kirito
- * @needingAttention(注意事项):
+
  */
 public class XRetrofit {
     /**
