@@ -36,8 +36,8 @@ public class BaseP<S> {
 
     /**
      * initiate a request
-     * @param observable the variable returned by  your server`s method back value
-     * @param netCallBack it will be call when the request finished
+     * @param observable the variable returned by  your server`s method returned value
+     * @param netCallBack the interface who will be called when the request finished
      * @param <T> the return model`s generic
      * @return
      */
