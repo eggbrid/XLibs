@@ -98,3 +98,4 @@ XRetrofit.toRequest(observable, netCallBack, disposables)
 ```
 ## XWebView(base on x5)<br>
 
+## code(base on blankJ AndroidUtilCode)<br>
