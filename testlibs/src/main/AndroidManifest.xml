@@ -7,6 +7,9 @@
         <activity android:name=".test.net.activity.NetTestActivity"
                   android:screenOrientation="portrait"
         />
+        <activity android:name=".test.net.activity.DownloadTestActivity"
+                  android:screenOrientation="portrait"
+        />
 
     </application>
 

@@ -79,7 +79,12 @@ public final class RetrofitHelper {
                     .build();
             return new RetrofitHelper(okHttpClient,factory,baseUrl);
         }
-
+        public RetrofitHelper buildDownload(DownloadCallBack downloadCallBack) {
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .addInterceptor(new DownloadInterceptor(downloadCallBack))
+                    .build();
+            return new RetrofitHelper(okHttpClient,factory,baseUrl);
+        }
     }
 
 }

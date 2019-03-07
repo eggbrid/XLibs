@@ -5,6 +5,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import kirito.peoject.baselib.UI.BaseActivity;
 import kirito.peoject.baselib.util.IntentUtil;
 import kirito.peoject.constantlibs.UIConstant.activity.TestLibs;
+import kirito.peoject.testlibs.test.net.activity.DownloadTestActivity;
 import kirito.peoject.testlibs.test.net.activity.NetTestActivity;
 
 /**
@@ -17,12 +18,15 @@ public class MainActivity extends BaseActivity<MainView> {
     @Override
     public void afterInitView(MainView v) {
         v.net.setOnClickListener(this);
+        v.download.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v == view.net) {
             IntentUtil.startActivity(this, NetTestActivity.class);
+        }else if (v == view.download) {
+            IntentUtil.startActivity(this, DownloadTestActivity.class);
         }
     }
 }

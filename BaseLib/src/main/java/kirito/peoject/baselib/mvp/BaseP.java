@@ -2,9 +2,11 @@ package kirito.peoject.baselib.mvp;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
+import kirito.peoject.baselib.thirdPart.Retrofit.DownloadCallBack;
 import kirito.peoject.baselib.thirdPart.Retrofit.NetCallBack;
 import kirito.peoject.baselib.thirdPart.Retrofit.XRetrofit;
 
+import java.io.File;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -33,6 +35,9 @@ public class BaseP<S> {
     public S getService() {
         return XRetrofit.getServerCall(getSClass());
     }
+    public S readyDownload(DownloadCallBack downloadCallBack) {
+        return XRetrofit.getDownloadServiceCall(getSClass(),downloadCallBack);
+    }
 
     /**
      * initiate a request
@@ -45,6 +50,9 @@ public class BaseP<S> {
         return XRetrofit.toRequest(observable, netCallBack, disposables);
     }
 
+    public Observable download(Observable observable, DownloadCallBack downloadCallBack,File file){
+        return XRetrofit.toRequest(observable,downloadCallBack,disposables,file);
+    }
     public void cancel() {
         if (disposables != null && disposables.size() > 0) {
             for (Disposable disposable : disposables) {

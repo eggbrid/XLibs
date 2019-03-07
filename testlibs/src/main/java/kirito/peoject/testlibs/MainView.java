@@ -15,6 +15,7 @@ import kirito.peoject.baselib.mvp.BaseV;
  */
 public class MainView extends BaseV {
     public Button net;
+    public Button download;
     public MainView(AppCompatActivity activity) {
         super(activity);
     }
@@ -27,6 +28,7 @@ public class MainView extends BaseV {
     @Override
     public void initView() {
         net=findViewById(R.id.net);
+        download=findViewById(R.id.download);
     }
 
 }

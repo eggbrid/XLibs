@@ -29,7 +29,7 @@ import java.util.Map;
  * @LastChekedBy: 王旭
  * @needingAttention(注意事项):
  */
-public abstract class BaseActivity<V extends BaseV> extends AppCompatActivity implements View.OnClickListener  {
+public abstract class BaseActivity<V extends BaseV> extends AppCompatActivity implements View.OnClickListener {
     private PermissionManager permissionManager;
     private Map<String, BaseP> presenters = new HashMap<>();
     protected V view;
@@ -37,8 +37,9 @@ public abstract class BaseActivity<V extends BaseV> extends AppCompatActivity im
     //参数初始化
     public void initParams(Bundle savedInstanceState) {
     }
+
     //初始化数据
-    public  void initData(){
+    public void initData() {
 
     }
 
@@ -59,9 +60,9 @@ public abstract class BaseActivity<V extends BaseV> extends AppCompatActivity im
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         try {
             initParams(savedInstanceState);
-            Class[] parameterTypes={AppCompatActivity.class};
-            Constructor<V> constructor=getTClass().getConstructor(parameterTypes);
-            Object[] parameters={this};
+            Class[] parameterTypes = {AppCompatActivity.class};
+            Constructor<V> constructor = getTClass().getConstructor(parameterTypes);
+            Object[] parameters = {this};
             view = constructor.newInstance(parameters);
         } catch (Exception e) {
             e.printStackTrace();
@@ -206,6 +207,12 @@ public abstract class BaseActivity<V extends BaseV> extends AppCompatActivity im
         return p;
     }
 
+    public <T extends BaseP> void bindP(T t) {
+        String tag = t.getClass().getPackage() + t.getClass().getName();
+        presenters.put(tag, t);
+    }
+
+
     public Class<V> getTClass() {
         Type type = getClass().getGenericSuperclass(); // 判断 是否泛型
         if (type instanceof ParameterizedType) { // 返回表示此类型实际类型参数的Type对象的数组. // 当有多个泛型类时，数组的长度就不是1了
@@ -223,7 +230,8 @@ public abstract class BaseActivity<V extends BaseV> extends AppCompatActivity im
 
         }
     }
-    public String getTag(){
+
+    public String getTag() {
         return this.getClassName();
     }
 
